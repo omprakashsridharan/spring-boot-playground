@@ -20,11 +20,6 @@ class BookService(
         val booksCacheFlow =
             reactiveRedisTemplate.keys("book:*").flatMap { reactiveRedisTemplate.opsForValue()[it!!] }.asFlow()
         return booksCacheFlow
-            .onCompletion {
-                bookRepository.findAll().collect {
-                    emit(it)
-                }
-            }
             .onEmpty {
                 bookRepository.findAll().collect {
                     emit(it)
