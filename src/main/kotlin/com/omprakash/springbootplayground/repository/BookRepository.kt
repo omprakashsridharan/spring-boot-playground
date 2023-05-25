@@ -1,6 +1,7 @@
 package com.omprakash.springbootplayground.repository
 
 import com.omprakash.springbootplayground.models.Book
-import org.springframework.data.r2dbc.repository.R2dbcRepository
+import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 
-interface BookRepository : R2dbcRepository<Book, Long>
+//@Repository
+interface BookRepository : CoroutineCrudRepository<Book, Long> {}
