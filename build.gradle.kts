@@ -30,6 +30,10 @@ dependencies {
     runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.92.Final:osx-aarch_64")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
+
+    // Kafka
+    implementation("org.springframework.kafka:spring-kafka")
+    implementation("com.fasterxml.jackson.core:jackson-databind")
 }
 
 tasks.withType<KotlinCompile> {
