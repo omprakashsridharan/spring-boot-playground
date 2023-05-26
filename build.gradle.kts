@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.0"
     kotlin("jvm") version "1.8.21"
     kotlin("plugin.spring") version "1.8.21"
+    kotlin("plugin.serialization") version "1.8.21"
 }
 
 group = "com.omprakash"
@@ -13,6 +14,10 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
+
+    maven {
+        url= uri("https://packages.confluent.io/maven/")
+    }
 }
 
 dependencies {
@@ -34,6 +39,10 @@ dependencies {
     // Kafka
     implementation("org.springframework.kafka:spring-kafka")
     implementation("com.fasterxml.jackson.core:jackson-databind")
+
+    // Avro
+    implementation("io.confluent:kafka-avro-serializer:7.4.0")
+
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,7 +1,6 @@
 package com.omprakash.springbootplayground.controllers
 
 import com.omprakash.springbootplayground.kafka.BookCreatedKafkaProducer
-import com.omprakash.springbootplayground.kafka.message.BookCreated
 import com.omprakash.springbootplayground.models.Book
 import com.omprakash.springbootplayground.services.BookService
 import kotlinx.coroutines.flow.Flow
@@ -21,7 +20,7 @@ class BookController(private val bookService: BookService, private val bookKafka
     @GetMapping("/publish")
     suspend fun publishBook(): String {
         return try {
-            bookKafkaProducer.publishBook(BookCreated(1, "Test", "1234")).toString()
+            bookKafkaProducer.publishBook(1L, "Test", "1234").toString()
         } catch (e: Exception) {
             println("Exception while publishing books ${e.message}")
             e.message ?: "Exception"
