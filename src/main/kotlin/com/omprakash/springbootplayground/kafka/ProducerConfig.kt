@@ -15,7 +15,7 @@ import org.springframework.kafka.support.serializer.JsonSerializer
 class ProducerConfig(val kafkaProperties: KafkaProperties) {
 
     @Bean
-    fun booksProducerFactory(): ProducerFactory<String, BookCreated> {
+    fun producerFactory(): ProducerFactory<String, BookCreated> {
         return mapOf<String, Any>(
             BOOTSTRAP_SERVERS_CONFIG to kafkaProperties.bootstrapServers,
             KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
@@ -24,6 +24,6 @@ class ProducerConfig(val kafkaProperties: KafkaProperties) {
     }
 
     @Bean
-    fun booksKafkaTemplate(): KafkaTemplate<String, BookCreated> = KafkaTemplate(booksProducerFactory())
+    fun booksCreatedKafkaTemplate() = KafkaTemplate(producerFactory())
 
 }

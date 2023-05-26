@@ -8,8 +8,10 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.kafka.core.KafkaAdmin
 
 object TOPICS {
-    const val BOOKS = "books_created"
+    const val BOOKS_CREATED = "books_created"
 }
+
+
 @Configuration
 class TopicConfig(val kafkaProperties: KafkaProperties) {
 
@@ -21,6 +23,6 @@ class TopicConfig(val kafkaProperties: KafkaProperties) {
     }
     @Bean
     fun books(): NewTopic? {
-        return NewTopic(TOPICS.BOOKS, 1, 1.toShort())
+        return NewTopic(TOPICS.BOOKS_CREATED, 1, 1.toShort())
     }
 }

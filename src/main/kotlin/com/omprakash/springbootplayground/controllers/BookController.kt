@@ -1,6 +1,6 @@
 package com.omprakash.springbootplayground.controllers
 
-import com.omprakash.springbootplayground.kafka.BookKafkaProducer
+import com.omprakash.springbootplayground.kafka.BookCreatedKafkaProducer
 import com.omprakash.springbootplayground.kafka.message.BookCreated
 import com.omprakash.springbootplayground.models.Book
 import com.omprakash.springbootplayground.services.BookService
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("/books")
-class BookController(private val bookService: BookService, private val bookKafkaProducer: BookKafkaProducer) {
+class BookController(private val bookService: BookService, private val bookKafkaProducer: BookCreatedKafkaProducer) {
 
     @GetMapping
     fun findAll(): Flow<Book> {
