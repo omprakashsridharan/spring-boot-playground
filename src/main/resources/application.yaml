@@ -1,5 +1,25 @@
 spring:
+  application:
+    name: spring-boot-playground
   sql:
     init:
       schema-locations: classpath:schema.sql
       mode: always
+
+logging:
+  config: classpath:logback-spring.xml
+  pattern:
+    level: "%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]"
+
+management:
+  tracing:
+    enabled: true
+    propagation:
+      type: b3
+    sampling:
+      probability: 1.0
+    baggage:
+      correlation:
+        enabled: true
+        fields: bookId
+      remote-fields: bookId

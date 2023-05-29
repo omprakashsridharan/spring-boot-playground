@@ -43,6 +43,15 @@ dependencies {
     // Avro
     implementation("io.confluent:kafka-avro-serializer:7.4.0")
 
+    // Tracing
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("io.micrometer:micrometer-tracing")
+    implementation("io.micrometer:micrometer-tracing-bridge-brave")
+    implementation("io.zipkin.reporter2:zipkin-reporter-brave")
+    implementation("net.logstash.logback:logstash-logback-encoder:7.3")
+    implementation("io.zipkin.brave:brave-context-slf4j")
+    implementation("io.zipkin.brave:brave-instrumentation-kafka-clients")
+
 }
 
 tasks.withType<KotlinCompile> {

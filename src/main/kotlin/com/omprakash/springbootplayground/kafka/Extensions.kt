@@ -12,6 +12,7 @@ import kotlin.coroutines.resumeWithException
 suspend inline fun <reified K : Any, reified V : Any> KafkaTemplate<K, V>.sendAsync(record: ProducerRecord<K, V>): SendResult<K, V> {
     return suspendCancellableCoroutine { cancellableContinuation ->
         val future = this.send(record)
+        this.setObservationEnabled(true)
         future.whenComplete { metadata, exception ->
             if (metadata != null) {
                 cancellableContinuation.resume(metadata)

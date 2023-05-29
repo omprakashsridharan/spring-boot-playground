@@ -25,6 +25,10 @@ class ProducerConfig(val kafkaProperties: KafkaProperties) {
     }
 
     @Bean
-    fun booksCreatedKafkaTemplate() = KafkaTemplate(producerFactory())
+    fun booksCreatedKafkaTemplate(): KafkaTemplate<String, GenericRecord> {
+        val kafkaTemplate: KafkaTemplate<String, GenericRecord> = KafkaTemplate(producerFactory())
+        kafkaTemplate.setObservationEnabled(true)
+        return kafkaTemplate
+    }
 
 }

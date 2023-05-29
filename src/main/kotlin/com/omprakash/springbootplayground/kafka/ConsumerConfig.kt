@@ -1,5 +1,7 @@
 package com.omprakash.springbootplayground.kafka
 
+import brave.Tracing
+import brave.kafka.clients.KafkaTracing
 import io.confluent.kafka.serializers.KafkaAvroDeserializer
 import org.apache.avro.generic.GenericRecord
 import org.apache.kafka.clients.consumer.ConsumerConfig.*
@@ -31,9 +33,17 @@ class ConsumerConfig(val kafkaProperties: KafkaProperties) {
     }
 
     @Bean
-    fun bookCreatedKafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<String, GenericRecord> {
+    fun kafkaTracing(tracing: Tracing?): KafkaTracing? {
+        return KafkaTracing.create(tracing)
+    }
+
+    @Bean
+    fun bookCreatedKafkaListenerContainerFactory(kafkaTracing: KafkaTracing): ConcurrentKafkaListenerContainerFactory<String, GenericRecord> {
         return ConcurrentKafkaListenerContainerFactory<String, GenericRecord>().apply {
-            consumerFactory = consumerFactory()
+            val cf = consumerFactory()
+            cf.addPostProcessor(kafkaTracing::consumer)
+            consumerFactory = cf
+            this.containerProperties.isObservationEnabled = true
         }
     }
 }
